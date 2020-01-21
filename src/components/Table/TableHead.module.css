@@ -1,0 +1,9 @@
+.cell {
+	padding: 10px 15px;
+}
+
+.row {
+	border-bottom: 2px solid black;
+	background: #FFD700;
+	cursor: pointer;
+}
