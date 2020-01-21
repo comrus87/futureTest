@@ -20,18 +20,18 @@ const Table = props => {
 	return (
 		<div>
 			<Pagination totalCount={props.data.length} 
-									currentPage={currentPage}
-									pageSize={pageSize}
-									onPageChanged={onPageChanged} />
+						currentPage={currentPage} 
+						pageSize={pageSize}
+						onPageChanged={onPageChanged} />
 			<table className={classes.table}>
 				<TableHead />
 				{items.map((person, index) => {
 					return <TableBody id={person.id}
-														firstName={person.firstName}
-														lastName={person.lastName}
-														email={person.email}
-														phone={person.phone}
-														key={index} />
+									  firstName={person.firstName}
+									  lastName={person.lastName}
+									  email={person.email}
+									  phone={person.phone}
+								      key={index} />
 				})}
 		  </table>
 		</div>
