@@ -51,18 +51,24 @@ export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, currentPa
 export const setCurrentInfo = dataInfo => ({type: SET_CURRENT_INFO, dataInfo});
 
 
-export const getSmallData = () => async (dispatch) => {
+export const getSmallData = () => (dispatch) => {
 	dispatch(toggleFetching(true));
-	let data = await dataApi.getSmallData();
-	dispatch(toggleFetching(false));
-  dispatch(setData(data));
+	let data = dataApi.getSmallData();
+	data.then(data => {
+		dispatch(toggleFetching(false));
+  		dispatch(setData(data));
+	})
+
 };
 
-export const getBigData = () => async (dispatch) => {
+export const getBigData = () => (dispatch) => {
 	dispatch(toggleFetching(true));
-	let data = await dataApi.getBigData();
-	dispatch(toggleFetching(false));
-	dispatch(setData(data));
+	let data = dataApi.getBigData();
+	data.then(data => {
+		dispatch(toggleFetching(false));
+		dispatch(setData(data));
+	})
+
 };
 
 export default dataReducer

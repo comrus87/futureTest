@@ -7,6 +7,7 @@ import Info from './Info/Info';
 
 
 const Table = props => {
+	console.log(props);
 	const [isInfo, setInfo] = useState(false);
  	let users = props.data.slice((props.currentPage - 1) * props.pageSize, props.currentPage * props.pageSize);
 
@@ -29,12 +30,12 @@ const Table = props => {
 			<table className={classes.table}>
 				<TableHead />
 				<tbody>
-					{users.map((person, index) => {
-						return <TableItem id={person.id}
-										  firstName={person.firstName}
-										  lastName={person.lastName}
-										  email={person.email}
-										  phone={person.phone}
+					{users.map((user, index) => {
+						return <TableItem id={user.id}
+										  firstName={user.firstName}
+										  lastName={user.lastName}
+										  email={user.email}
+										  phone={user.phone}
 									      key={index}
 									      onItemOpenInfo={onItemOpenInfo} />
 					})}
