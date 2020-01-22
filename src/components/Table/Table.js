@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Table.module.css';
 import TableHead from './TableHead';
 import TableItem from './TableItem';
 import Pagination from './Pagination/Pagination';
-// import Info from './Info/Info';
+import Info from './Info/Info';
 
 
 const Table = props => {
+	const [dataInfo, setDataInfo] = useState({})
 
  	let users = props.data.slice((props.currentPage - 1) * props.pageSize, props.currentPage * props.pageSize);
 
@@ -15,7 +16,8 @@ const Table = props => {
  	}
 
  	const onItemOpenInfo = (id) => {
- 		console.log(id)
+ 		let a = users.filter(u => u.id === id)[0];
+ 		setDataInfo(a);
  	}
 
 	return (
@@ -37,9 +39,9 @@ const Table = props => {
 									      onItemOpenInfo={onItemOpenInfo} />
 					})}
 				</tbody>
-		  </table>
-
-		</div>
+		  	</table>
+		  		<Info data={dataInfo}/>
+			</div>
 	)
 }
 

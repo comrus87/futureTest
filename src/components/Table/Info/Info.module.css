@@ -1,3 +1,19 @@
 .container {
 	margin-top: 15px;
+	padding: 10px;
+}
+
+.item {
+	font-size: 14px;
+	line-height: 21px;
+	margin: 0;
+}
+
+.description {
+	border: none;
+	resize: none;
+	width: 100%;
+	min-height: 80px;
+	padding: 5px;
+	background: none;
 }
