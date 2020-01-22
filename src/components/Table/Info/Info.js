@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Info.module.css';
 
 const Info = props => {
-	console.log(props.data.address)
+	// console.log(props.data.address.streetAddress)
 	return (
 		<div className={classes.container}>
 			<p className={classes.item}> Выбран пользователь: 
