@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import classes from './Table.module.css';
 import TableHead from './TableHead';
 import TableItem from './TableItem';
@@ -7,7 +7,6 @@ import Info from './Info/Info';
 
 
 const Table = props => {
-	const [dataInfo, setDataInfo] = useState({})
 
  	let users = props.data.slice((props.currentPage - 1) * props.pageSize, props.currentPage * props.pageSize);
 
@@ -17,8 +16,9 @@ const Table = props => {
 
  	const onItemOpenInfo = (id) => {
  		let a = users.filter(u => u.id === id)[0];
- 		setDataInfo(a);
+ 		props.setCurrentInfo(a)
  	}
+
 
 	return (
 		<div>
@@ -40,7 +40,7 @@ const Table = props => {
 					})}
 				</tbody>
 		  	</table>
-		  		<Info data={dataInfo}/>
+		  		<Info data={props.dataInfo}/>
 			</div>
 	)
 }

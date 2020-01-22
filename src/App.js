@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './App.module.css';
 import {connect} from 'react-redux';
-import {getSmallData, getBigData, setCurrentPage} from './redux/dataReducer';
+import {getSmallData, getBigData, setCurrentPage, setCurrentInfo} from './redux/dataReducer';
 import Table from './components/Table/Table';
 import Select from './components/Select/Select';
 import Preloader from './components/common/Preloader/Preloader';
@@ -38,6 +38,8 @@ class App extends React.Component {
                  currentPage={this.props.currentPage} 
                  pageSize={this.props.pageSize} 
                  setCurrentPage={this.props.setCurrentPage}
+                 dataInfo={this.props.dataInfo}
+                 setCurrentInfo={this.props.setCurrentInfo}
                  />
         }
       </div>
@@ -50,14 +52,16 @@ const mapStateToProps = state => {
     data: state.data.data,
     isFetching: state.data.isFetching,
     currentPage: state.data.currentPage,
-    pageSize: state.data.pageSize
+    pageSize: state.data.pageSize,
+    dataInfo: state.data.dataInfo
   }
 };
 
 const mapDispatchToProps = {
   getSmallData,
   getBigData,
-  setCurrentPage
+  setCurrentPage,
+  setCurrentInfo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
