@@ -14,11 +14,11 @@ const Pagination = props => {
   }
 
     return (
-          <div>
+          <ul className={classes.list}>
             {pages.map((p, index) => {
-              return <span className={classes.page} key={index} onClick={() => props.onPageChanged(p)}>{p}</span>
+              return <li className={classes.page} key={index} onClick={() => props.onPageChanged(p)}>{p}</li>
             })}
-          </div>
+          </ul>
         )
 }
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import classes from './TableBody.module.css';
+import classes from './TableItem.module.css';
 
-const TableBody = props => {
+const TableItem = props => {
 	return (
-	    <tbody>
 	      <tr className={classes.row}>
 	        <td className={classes.cell}>{props.id}</td>
 	        <td className={classes.cell}>{props.firstName}</td>
@@ -11,10 +10,9 @@ const TableBody = props => {
 	        <td className={classes.cell}>{props.email}</td>
 	        <td className={classes.cell}>{props.phone}</td>
 	      </tr>
-	    </tbody>
 	)
 }
 
-export default TableBody 
+export default TableItem 
 
 
