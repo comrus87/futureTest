@@ -1,19 +1,25 @@
 import React from 'react';
 import classes from './App.module.css';
 import {connect} from 'react-redux';
-import {getSmallData, getBigData, setCurrentPage, setCurrentInfo} from './redux/dataReducer';
+import {getSmallData, getBigData, setCurrentPage, setCurrentInfo, setUser} from './redux/dataReducer';
 import Table from './components/Table/Table';
 import Select from './components/Select/Select';
 import Preloader from './components/common/Preloader/Preloader';
+import UserForm from './components/UserForm/UserForm';
 
 class App extends React.Component {
 
   state = {
-    renderMode: 'small'
+    renderMode: 'small',
+    isAddUser: false
   }
 
   onSelectChange = evt => {
     this.setState({renderMode: evt.target.value});
+  }
+
+  onSubmit = formData => {
+    this.props.setUser(formData);
   }
 
   componentDidMount() {
@@ -23,6 +29,7 @@ class App extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (prevState.renderMode !== this.state.renderMode && this.state.renderMode === 'big') {
       this.props.getBigData();
+      console.log(this.state)
     } else if (prevState.renderMode !== this.state.renderMode && this.state.renderMode === 'small') {
       this.props.getSmallData();
     }
@@ -32,6 +39,9 @@ class App extends React.Component {
     return (
       <div className={classes.container}>
         <Select value={this.state.renderMode} onChange={this.onSelectChange} />
+        {!this.state.isAddUser && <button className={classes.btnAdd} onClick={() => {this.setState({isAddUser: true})}}>Добавить</button>}
+        {this.state.isAddUser && <button className={classes.btnAdd} onClick={() => {this.setState({isAddUser: false})}}>Свернуть</button>}
+        {this.state.isAddUser && <UserForm onSubmit={this.onSubmit} />}
         {this.props.isFetching 
         ? <Preloader />
         : <Table data={this.props.data} 
@@ -61,7 +71,8 @@ const mapDispatchToProps = {
   getSmallData,
   getBigData,
   setCurrentPage,
-  setCurrentInfo
+  setCurrentInfo,
+  setUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
