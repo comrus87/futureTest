@@ -16,7 +16,9 @@ const Pagination = props => {
     return (
           <ul className={classes.list}>
             {pages.map((p, index) => {
-              return <li className={classes.page} key={index} onClick={() => props.onPageChanged(p)}>{p}</li>
+              return <li className={props.currentPage === p ? classes.currentPage : classes.page} 
+                         key={index} 
+                         onClick={() => props.onPageChanged(p)}>{p}</li>
             })}
           </ul>
         )

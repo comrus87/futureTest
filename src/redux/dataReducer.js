@@ -2,10 +2,13 @@ import {dataApi} from './../api/api';
 
 const SET_DATA = 'data/SET_DATA';
 const SET_PRELOADER = 'data/SET_PRELOADER';
+const SET_CURRENT_PAGE = 'data/SET_CURRENT_PAGE';
 
 let initialState = {
 	data: [],
-	isFetching: false
+	isFetching: false,
+	currentPage: 1,
+	pageSize: 50
 }
 
 const dataReducer = (state = initialState, action) => {
@@ -23,6 +26,12 @@ const dataReducer = (state = initialState, action) => {
 				isFetching: action.isFetching
 			}
 
+		case SET_CURRENT_PAGE:
+			return {
+				...state,
+				currentPage: action.currentPage
+			}
+
 		default:
 			return state;
 	}
@@ -30,6 +39,8 @@ const dataReducer = (state = initialState, action) => {
 
 export const setData = data => ({type: SET_DATA, data});
 export const toggleFetching = isFetching => ({type: SET_PRELOADER, isFetching});
+export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, currentPage});
+
 
 export const getSmallData = () => async (dispatch) => {
 	dispatch(toggleFetching(true));

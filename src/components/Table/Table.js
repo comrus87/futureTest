@@ -1,39 +1,44 @@
-import React, {useState} from 'react';
+import React from 'react';
 import classes from './Table.module.css';
 import TableHead from './TableHead';
 import TableItem from './TableItem';
 import Pagination from './Pagination/Pagination';
+// import Info from './Info/Info';
 
 
 const Table = props => {
-	const [currentPage, setCurrentPage] = useState(1);
-  	const [pageSize] = useState(50);
 
- 	let items = props.data.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+ 	let users = props.data.slice((props.currentPage - 1) * props.pageSize, props.currentPage * props.pageSize);
 
  	const onPageChanged = (page) => {
- 		setCurrentPage(page)
+ 		props.setCurrentPage(page);
+ 	}
+
+ 	const onItemOpenInfo = (id) => {
+ 		console.log(id)
  	}
 
 	return (
 		<div>
 			<Pagination totalCount={props.data.length} 
-						currentPage={currentPage} 
-						pageSize={pageSize}
+						currentPage={props.currentPage} 
+						pageSize={props.pageSize}
 						onPageChanged={onPageChanged} />
 			<table className={classes.table}>
 				<TableHead />
 				<tbody>
-					{items.map((person, index) => {
+					{users.map((person, index) => {
 						return <TableItem id={person.id}
 										  firstName={person.firstName}
 										  lastName={person.lastName}
 										  email={person.email}
 										  phone={person.phone}
-									      key={index} />
+									      key={index}
+									      onItemOpenInfo={onItemOpenInfo} />
 					})}
 				</tbody>
 		  </table>
+
 		</div>
 	)
 }

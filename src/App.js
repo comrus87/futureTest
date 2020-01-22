@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './App.module.css';
 import {connect} from 'react-redux';
-import {getSmallData, getBigData} from './redux/dataReducer';
+import {getSmallData, getBigData, setCurrentPage} from './redux/dataReducer';
 import Table from './components/Table/Table';
 import Select from './components/Select/Select';
 import Preloader from './components/common/Preloader/Preloader';
@@ -34,7 +34,11 @@ class App extends React.Component {
         <Select value={this.state.renderMode} onChange={this.onSelectChange} />
         {this.props.isFetching 
         ? <Preloader />
-        : <Table data={this.props.data} />
+        : <Table data={this.props.data} 
+                 currentPage={this.props.currentPage} 
+                 pageSize={this.props.pageSize} 
+                 setCurrentPage={this.props.setCurrentPage}
+                 />
         }
       </div>
     )
@@ -44,8 +48,16 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     data: state.data.data,
-    isFetching: state.data.isFetching
+    isFetching: state.data.isFetching,
+    currentPage: state.data.currentPage,
+    pageSize: state.data.pageSize
   }
 };
 
-export default connect(mapStateToProps, {getSmallData, getBigData})(App);
+const mapDispatchToProps = {
+  getSmallData,
+  getBigData,
+  setCurrentPage
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
