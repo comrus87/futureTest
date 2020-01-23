@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './App.module.css';
 import {connect} from 'react-redux';
-import {getSmallData, getBigData, setCurrentPage, setCurrentInfo, setUser} from './redux/dataReducer';
+import {getSmallData, getBigData, setCurrentPage, setCurrentInfo, setUser, setData} from './redux/dataReducer';
 import Table from './components/Table/Table';
 import Select from './components/Select/Select';
 import Preloader from './components/common/Preloader/Preloader';
@@ -31,7 +31,6 @@ class App extends React.Component {
   componentDidUpdate (prevProps, prevState) {
     if (prevState.renderMode !== this.state.renderMode && this.state.renderMode === 'big') {
       this.props.getBigData();
-      console.log(this.state)
     } else if (prevState.renderMode !== this.state.renderMode && this.state.renderMode === 'small') {
       this.props.getSmallData();
     }
@@ -52,6 +51,7 @@ class App extends React.Component {
                  setCurrentPage={this.props.setCurrentPage}
                  dataInfo={this.props.dataInfo}
                  setCurrentInfo={this.props.setCurrentInfo}
+                 setData={this.props.setData}
                  />
         }
       </div>
@@ -74,7 +74,8 @@ const mapDispatchToProps = {
   getBigData,
   setCurrentPage,
   setCurrentInfo,
-  setUser
+  setUser,
+  setData
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

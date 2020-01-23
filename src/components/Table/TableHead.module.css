@@ -1,9 +1,39 @@
 .cell {
-	padding: 10px 15px;
+	padding: 10px 0;
 }
 
 .row {
 	border-bottom: 2px solid black;
 	background: #FFD700;
+}
+
+.header {
+	font-size: 16px;
+	line-height: 24px;
+	cursor: pointer;
+	margin-right: 5px;
+}
+
+.wrap {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.triangleUp {
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 12px solid black;
+	cursor: pointer;
+}
+
+.triangleDown {
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 12px solid black;
 	cursor: pointer;
 }

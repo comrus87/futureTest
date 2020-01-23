@@ -8,6 +8,7 @@ import Info from './Info/Info';
 
 const Table = props => {
 	const [isInfo, setInfo] = useState(false);
+
  	let users = props.data.slice((props.currentPage - 1) * props.pageSize, props.currentPage * props.pageSize);
 
  	const onPageChanged = (page) => {
@@ -17,7 +18,7 @@ const Table = props => {
  	const onItemOpenInfo = (id) => {
  		let a = users.filter(u => u.id === id)[0];
  		props.setCurrentInfo(a);
- 		setInfo(true)
+ 		setInfo(true);
  	}
 
 	return (
@@ -27,7 +28,7 @@ const Table = props => {
 						pageSize={props.pageSize}
 						onPageChanged={onPageChanged} />
 			<table className={classes.table}>
-				<TableHead />
+				<TableHead data={props.data} setData={props.setData} />
 				<tbody>
 					{users.map((user, index) => {
 						return <TableItem id={user.id}

@@ -6,6 +6,7 @@ const SET_CURRENT_PAGE = 'data/SET_CURRENT_PAGE';
 const SET_CURRENT_INFO = 'data/SET_CURRENT_INFO';
 const SET_USER = 'data/SET_USER';
 
+
 let initialState = {
 	data: [],
 	isFetching: false,
@@ -57,6 +58,8 @@ export const toggleFetching = isFetching => ({type: SET_PRELOADER, isFetching});
 export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, currentPage});
 export const setCurrentInfo = dataInfo => ({type: SET_CURRENT_INFO, dataInfo});
 export const setUser = user => ({type: SET_USER, user});
+
+
 
 export const getSmallData = () => (dispatch) => {
 	dispatch(toggleFetching(true));
