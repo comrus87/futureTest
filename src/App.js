@@ -6,6 +6,7 @@ import Table from './components/Table/Table';
 import Select from './components/Select/Select';
 import Preloader from './components/common/Preloader/Preloader';
 import UserForm from './components/UserForm/UserForm';
+import {reset} from 'redux-form';
 
 class App extends React.Component {
 
@@ -18,8 +19,9 @@ class App extends React.Component {
     this.setState({renderMode: evt.target.value});
   }
 
-  onSubmit = formData => {
+  onSubmit = (formData, dispatch) => {
     this.props.setUser(formData);
+    dispatch(reset('user'));
   }
 
   componentDidMount() {

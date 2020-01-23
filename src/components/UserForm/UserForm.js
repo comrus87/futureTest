@@ -1,42 +1,44 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import classes from './UserForm.module.css';
-import {required} from './../../utils/validators/validators';
+import {required, idValidate, mailValidate, phoneValidate} from './../../utils/validators/validators';
+import Input from './../common/Input/Input';
 
 let UserForm = props => {
+	console.log(props)
 	return (
 		<form className={classes.form} onSubmit={props.handleSubmit}>
 			<Field className={classes.input}
 						 placeholder={'id'} 
 						 name={'id'} 
-						 component={'input'}
-						 validate={[required]}
+						 component={Input}
+						 validate={[required, idValidate]}
 			/>
 			<Field className={classes.input} 
 						 placeholder={'Имя'} 
 						 name={'firstName'} 
-						 component={'input'}
+						 component={Input}
 						 validate={[required]}
 			/>
 			<Field className={classes.input} 
 						 placeholder={'Фамилия'}
 						 name={'lastName'} 
-						 component={'input'}
+						 component={Input}
 						 validate={[required]}
 			/>
 			<Field className={classes.input} 
 						 placeholder={'E-mail'} 
 						 name={'email'} 
-						 component={'input'}
-						 validate={[required]}
+						 component={Input}
+						 validate={[required, mailValidate]}
 			/>
 			<Field className={classes.input} 
 						 placeholder={'Телефон'} 
 						 name={'phone'} 
-						 component={'input'}
-						 validate={[required]}
+						 component={Input}
+						 validate={[required, phoneValidate]}
 			/>
-			<button className={classes.btnSubmit}> Отправить </button>
+			<button className={props.invalid ? classes.btnSubmit + ' ' + classes.btnDisabled : classes.btnSubmit}> Отправить </button>
 		</form>
 	)
 		

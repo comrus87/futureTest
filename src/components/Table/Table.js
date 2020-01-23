@@ -7,7 +7,6 @@ import Info from './Info/Info';
 
 
 const Table = props => {
-	console.log(props);
 	const [isInfo, setInfo] = useState(false);
  	let users = props.data.slice((props.currentPage - 1) * props.pageSize, props.currentPage * props.pageSize);
 

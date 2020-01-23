@@ -75,7 +75,6 @@ export const getBigData = () => (dispatch) => {
 		dispatch(toggleFetching(false));
 		dispatch(setData(data));
 	})
-
 };
 
 export default dataReducer
