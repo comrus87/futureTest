@@ -6,6 +6,7 @@ import Table from './components/Table/Table';
 import Select from './components/Select/Select';
 import Preloader from './components/common/Preloader/Preloader';
 import UserForm from './components/UserForm/UserForm';
+import SearchForm from './components/SearchForm/SearchForm';
 import {reset} from 'redux-form';
 
 class App extends React.Component {
@@ -19,9 +20,26 @@ class App extends React.Component {
     this.setState({renderMode: evt.target.value});
   }
 
-  onSubmit = (formData, dispatch) => {
+  onSubmitUser = (formData, dispatch) => {
     this.props.setUser(formData);
     dispatch(reset('user'));
+  }
+
+  onSubmitSearch =(formData) => {
+    let value = formData.searchValue.toLowerCase();
+    let newData = this.props.data.filter(obj => {
+      for (let key in obj) {
+        if (key === 'id' || key === 'firstName' || key === 'lastName' || key === 'email' ||  key === 'phone') {
+          if (String(obj[key]).toLowerCase().indexOf(value) > -1) {
+             console.log(String(obj[key]))
+            return true
+          }
+        }
+      }
+      return false
+    })
+    console.log(newData);
+    this.props.setData(newData);
   }
 
   componentDidMount() {
@@ -42,7 +60,8 @@ class App extends React.Component {
         <Select value={this.state.renderMode} onChange={this.onSelectChange} />
         {!this.state.isAddUser && <button className={classes.btnAdd} onClick={() => {this.setState({isAddUser: true})}}>Добавить</button>}
         {this.state.isAddUser && <button className={classes.btnAdd} onClick={() => {this.setState({isAddUser: false})}}>Свернуть</button>}
-        {this.state.isAddUser && <UserForm onSubmit={this.onSubmit} />}
+        {this.state.isAddUser && <UserForm onSubmit={this.onSubmitUser} />}
+        <SearchForm onSubmit={this.onSubmitSearch}/>
         {this.props.isFetching 
         ? <Preloader />
         : <Table data={this.props.data} 

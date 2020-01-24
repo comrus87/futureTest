@@ -5,7 +5,6 @@ import {required, idValidate, mailValidate, phoneValidate} from './../../utils/v
 import Input from './../common/Input/Input';
 
 let UserForm = props => {
-	console.log(props)
 	return (
 		<form className={classes.form} onSubmit={props.handleSubmit}>
 			<Field className={classes.input}

@@ -20,7 +20,7 @@
 	justify-content: center;
 }
 
-.triangleUp {
+.triangleDown {
 	width: 0;
 	height: 0;
 	border-left: 6px solid transparent;
@@ -29,7 +29,7 @@
 	cursor: pointer;
 }
 
-.triangleDown {
+.triangleUp {
 	width: 0;
 	height: 0;
 	border-left: 6px solid transparent;
