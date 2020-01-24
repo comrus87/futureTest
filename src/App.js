@@ -13,7 +13,8 @@ class App extends React.Component {
 
   state = {
     renderMode: 'small',
-    isAddUser: false
+    isAddUser: false,
+    hasError: false
   }
 
   onSelectChange = evt => {
@@ -21,25 +22,32 @@ class App extends React.Component {
   }
 
   onSubmitUser = (formData, dispatch) => {
-    this.props.setUser(formData);
-    dispatch(reset('user'));
+    try {
+      this.props.setUser(formData);
+      dispatch(reset('user'));
+    } catch (error) {
+      this.setState({hasError: true});
+    }
   }
 
   onSubmitSearch =(formData) => {
-    let value = formData.searchValue.toLowerCase();
-    let newData = this.props.data.filter(obj => {
-      for (let key in obj) {
-        if (key === 'id' || key === 'firstName' || key === 'lastName' || key === 'email' ||  key === 'phone') {
-          if (String(obj[key]).toLowerCase().indexOf(value) > -1) {
-             console.log(String(obj[key]))
-            return true
+    try {
+      let value = formData.searchValue.toLowerCase();
+      let newData = this.props.data.filter(obj => {
+        for (let key in obj) {
+          if (key === 'id' || key === 'firstName' || key === 'lastName' || key === 'email' ||  key === 'phone') {
+            if (String(obj[key]).toLowerCase().indexOf(value) > -1) {
+              return true
+            }
           }
         }
-      }
-      return false
-    })
-    console.log(newData);
-    this.props.setData(newData);
+        return false
+      })
+      this.props.setData(newData);
+    } catch (error) {
+      this.setState({hasError: true});
+    }
+
   }
 
   componentDidMount() {
@@ -55,6 +63,10 @@ class App extends React.Component {
   }
 
   render () {
+    if (this.state.hasError) {
+      return <h1 className={classes.error}>Что-то пошло не так!</h1>
+    }
+
     return (
       <div className={classes.container}>
         <Select value={this.state.renderMode} onChange={this.onSelectChange} />
