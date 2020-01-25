@@ -9,8 +9,12 @@
     width: 100px;
 }
 
+.btnSearch:hover {
+    opacity: 0.7;
+}
+
 .btnSearch:active {
-	opacity: 0.7;
+	opacity: 0.5;
 }
 
 .container {

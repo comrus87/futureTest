@@ -30,3 +30,11 @@
     padding: 3px 0;
     width: 100px;
 }
+
+.btnRefresh:hover {
+	opacity: 0.7
+}
+
+.btnRefresh:active {
+	opacity: 0.5
+}
