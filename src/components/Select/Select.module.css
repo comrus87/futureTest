@@ -1,8 +1,12 @@
 .container {
 	display: flex;
-	align-items: center;
+	justify-content: space-between;
 	margin-top: 15px;
 	margin-bottom: 15px;
+}
+
+.selectContainer {
+	display: flex;
 }
 
 .description {
@@ -14,4 +18,15 @@
 .select {
 	height: 25px;
 	margin-left: 10px;
+}
+
+.btnRefresh {
+	cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 22px;
+    background: gold;
+    border: none;
+    padding: 3px 0;
+    width: 100px;
 }

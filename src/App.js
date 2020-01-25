@@ -30,7 +30,7 @@ class App extends React.Component {
     }
   }
 
-  onSubmitSearch =(formData) => {
+  onSubmitSearch =(formData, dispatch) => {
     try {
       let value = formData.searchValue.toLowerCase();
       let newData = this.props.data.filter(obj => {
@@ -44,10 +44,22 @@ class App extends React.Component {
         return false
       })
       this.props.setData(newData);
+      dispatch(reset('search'));
     } catch (error) {
       this.setState({hasError: true});
     }
+  }
 
+  refreshData = () => {
+    try {
+      if (this.state.renderMode === 'big') {
+        this.props.getBigData();
+      } else if (this.state.renderMode === 'small') {
+        this.props.getSmallData();
+      }
+    } catch (error) {
+      this.setState({hasError: true});
+    }
   }
 
   componentDidMount() {
@@ -69,7 +81,7 @@ class App extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Select value={this.state.renderMode} onChange={this.onSelectChange} />
+        <Select value={this.state.renderMode} onChange={this.onSelectChange} refreshData={this.refreshData}/>
         {!this.state.isAddUser && <button className={classes.btnAdd} onClick={() => {this.setState({isAddUser: true})}}>Добавить</button>}
         {this.state.isAddUser && <button className={classes.btnAdd} onClick={() => {this.setState({isAddUser: false})}}>Свернуть</button>}
         {this.state.isAddUser && <UserForm onSubmit={this.onSubmitUser} />}
