@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './App.module.css';
 import {connect} from 'react-redux';
-import {getSmallData, getBigData, setCurrentPage, setCurrentInfo, setUser, setData} from './redux/dataReducer';
+import {getSmallData, getBigData, setRenderMode, setCurrentPage, setCurrentInfo, setUser, setData} from './redux/dataReducer';
 import Table from './components/Table/Table';
 import Select from './components/Select/Select';
 import Preloader from './components/common/Preloader/Preloader';
@@ -12,13 +12,13 @@ import {reset} from 'redux-form';
 class App extends React.Component {
 
   state = {
-    renderMode: 'small',
     isAddUser: false,
     hasError: false
   }
 
   onSelectChange = evt => {
-    this.setState({renderMode: evt.target.value});
+    this.props.setRenderMode(evt.target.value);
+    this.props.setCurrentPage(1);
   }
 
   onSubmitUser = (formData, dispatch) => {
@@ -52,9 +52,9 @@ class App extends React.Component {
 
   refreshData = () => {
     try {
-      if (this.state.renderMode === 'big') {
+      if (this.props.renderMode === 'big') {
         this.props.getBigData();
-      } else if (this.state.renderMode === 'small') {
+      } else if (this.props.renderMode === 'small') {
         this.props.getSmallData();
       }
     } catch (error) {
@@ -67,9 +67,9 @@ class App extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (prevState.renderMode !== this.state.renderMode && this.state.renderMode === 'big') {
+    if (prevProps.renderMode !== this.props.renderMode && this.props.renderMode === 'big') {
       this.props.getBigData();
-    } else if (prevState.renderMode !== this.state.renderMode && this.state.renderMode === 'small') {
+    } else if (prevProps.renderMode !== this.props.renderMode && this.props.renderMode === 'small') {
       this.props.getSmallData();
     }
   }
@@ -108,7 +108,8 @@ const mapStateToProps = state => {
     isFetching: state.data.isFetching,
     currentPage: state.data.currentPage,
     pageSize: state.data.pageSize,
-    dataInfo: state.data.dataInfo
+    dataInfo: state.data.dataInfo,
+    renderMode: state.data.renderMode
   }
 };
 
@@ -118,7 +119,8 @@ const mapDispatchToProps = {
   setCurrentPage,
   setCurrentInfo,
   setUser,
-  setData
+  setData,
+  setRenderMode
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
