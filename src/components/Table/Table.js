@@ -41,6 +41,7 @@ const Table = props => {
 					})}
 				</tbody>
 		  	</table>
+		  		{props.isFound && <span className={classes.foundMessage}> Ничего не найдено</span>}
 		  		{isInfo && <Info data={props.dataInfo}/>}
 			</div>
 	)

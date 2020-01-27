@@ -13,6 +13,7 @@ class App extends React.Component {
 
   state = {
     isAddUser: false,
+    isFound: false,
     hasError: false
   }
 
@@ -24,6 +25,7 @@ class App extends React.Component {
   onSubmitUser = (formData, dispatch) => {
     try {
       this.props.setUser(formData);
+      this.setState({isFound: false});
       dispatch(reset('user'));
     } catch (error) {
       this.setState({hasError: true});
@@ -43,8 +45,15 @@ class App extends React.Component {
         }
         return false
       })
-      this.props.setData(newData);
-      dispatch(reset('search'));
+      if (newData.length > 0) {
+        this.props.setData(newData);
+        this.props.setCurrentPage(1);
+        dispatch(reset('search'));
+        return;
+      }
+       this.props.setData([]);
+       this.setState({isFound: true});
+       dispatch(reset('search'));
     } catch (error) {
       this.setState({hasError: true});
     }
@@ -52,6 +61,7 @@ class App extends React.Component {
 
   refreshData = () => {
     try {
+      this.setState({isFound: false});
       if (this.props.renderMode === 'big') {
         this.props.getBigData();
       } else if (this.props.renderMode === 'small') {
@@ -95,6 +105,7 @@ class App extends React.Component {
                  dataInfo={this.props.dataInfo}
                  setCurrentInfo={this.props.setCurrentInfo}
                  setData={this.props.setData}
+                 isFound={this.state.isFound}
                  />
         }
       </div>

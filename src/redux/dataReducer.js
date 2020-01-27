@@ -68,23 +68,24 @@ export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, currentPa
 export const setCurrentInfo = dataInfo => ({type: SET_CURRENT_INFO, dataInfo});
 export const setUser = user => ({type: SET_USER, user});
 
-export const getSmallData = () => (dispatch) => {
+const getData = (dispatch, apiMethod) => {
 	dispatch(toggleFetching(true));
-	let data = dataApi.getSmallData();
-	data.then(data => {
-		dispatch(toggleFetching(false));
-  		dispatch(setData(data));
-	})
-
-};
-
-export const getBigData = () => (dispatch) => {
-	dispatch(toggleFetching(true));
-	let data = dataApi.getBigData();
+	let data = apiMethod();
 	data.then(data => {
 		dispatch(toggleFetching(false));
 		dispatch(setData(data));
 	})
+}
+
+export const getSmallData = () => (dispatch) => {
+	let apiMethod = dataApi.getSmallData.bind(dataApi);
+	getData(dispatch, apiMethod);
 };
+
+export const getBigData = () => (dispatch) => {
+	let apiMethod = dataApi.getBigData.bind(dataApi);
+	getData(dispatch, apiMethod);
+};
+
 
 export default dataReducer
